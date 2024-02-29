@@ -14,5 +14,5 @@ func New() *Service {
 func (s *Service) FindFile(word string) string {
 	search := searcher.New()
 	search.Search(word)
-	return ""
+	return "TEST" // Должно возвращаться имя файла
 }

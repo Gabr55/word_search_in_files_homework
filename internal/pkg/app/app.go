@@ -23,6 +23,9 @@ func New() (*App, error) {
 
 	a.echo = echo.New()
 
+	// Маршруты
+	a.echo.GET("/", a.e.Root) // Переделать на POST с передачей слова
+
 	return a, nil
 }
 
