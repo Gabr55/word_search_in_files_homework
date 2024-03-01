@@ -16,7 +16,8 @@ func New() *Searcher {
 }
 
 func (s *Searcher) Search(word string) (files []string, err error) {
-	fileNames, err := dir.FilesFS(s.FS, "./examples")
+	fileNames, err := dir.FilesFS(s.FS, "./examples") // Проблема в нем
+
 	if err != nil {
 		return nil, err
 	}

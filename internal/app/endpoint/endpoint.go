@@ -33,7 +33,7 @@ func (e *Endpoint) Find(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	err = c.JSON(http.StatusOK, f) // Переделать на JSON
+	err = c.JSON(http.StatusOK, f) // Переделать на JSON с полем founded
 	if err != nil {
 		return err
 	}
