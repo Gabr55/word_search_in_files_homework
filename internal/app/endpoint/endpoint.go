@@ -7,7 +7,7 @@ import (
 )
 
 type Service interface {
-	FindFile(word string) string
+	FindFiles(word string) ([]string, error)
 }
 
 type Endpoint struct {
@@ -22,12 +22,18 @@ func New(s Service) *Endpoint {
 
 func (e *Endpoint) Find(c echo.Context) error {
 	p := c.QueryParam("word") // Достаем значение параетра word
+	// Добавить проверку на пустой или отсутсвующий параметр
 	if p == "" {
-		p = "" // Добавить условие пустого параметра word
+		err := c.String(http.StatusOK, "Параметры не найдены") // Переделать на нормальный json ответ
+		if err != nil {
+			return err
+		}
 	}
-	f := e.s.FindFile(p)
-
-	err := c.String(http.StatusOK, f) // Переделать на JSON
+	f, err := e.s.FindFiles(p)
+	if err != nil {
+		return err
+	}
+	err = c.JSON(http.StatusOK, f) // Переделать на JSON
 	if err != nil {
 		return err
 	}

@@ -12,9 +12,13 @@ func New() *Service {
 	return &Service{}
 }
 
-func (s *Service) FindFile(word string) string {
+func (s *Service) FindFiles(word string) (foundFiles []string, err error) {
+	// Контрольный перевод в lowercase
 	w := strings.ToLower(word)
 	search := searcher.New()
-	search.Search(w)
-	return w // Должно возвращаться имя файла
+	foundFiles, err = search.Search(w)
+	if err != nil {
+		return nil, err
+	}
+	return foundFiles, nil // Должен возвращаться слайс файлов
 }

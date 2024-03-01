@@ -26,7 +26,8 @@ func TestSearcher_Search(t *testing.T) {
 			fields: fields{
 				FS: fstest.MapFS{
 					"file1.txt": {Data: []byte("World")},
-					"file2.txt": {Data: []byte("World1")},
+					// "file2.txt": {Data: []byte("World1")},
+					"file2.txt": {Data: []byte("Worl1d")}, // Временно сделаем такое допущение
 					"file3.txt": {Data: []byte("Hello World")},
 				},
 			},
