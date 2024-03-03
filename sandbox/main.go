@@ -1,9 +1,12 @@
-package dir
+package main
 
 import (
 	"fmt"
 	"io/fs"
+	"os"
 )
+
+var files fs.FS = os.DirFS(".")
 
 func FilesFS(fsys fs.FS, dir string) ([]string, error) {
 	if dir == "" {
@@ -26,5 +29,5 @@ func FilesFS(fsys fs.FS, dir string) ([]string, error) {
 }
 
 func main() {
-	fmt.Println(FilesFS(, "")) // Нужна реализация для fs.FS
+	fmt.Println(FilesFS(files, ""))
 }
