@@ -21,7 +21,7 @@ func (s *Service) FindFiles(word string) (foundFiles []string, err error) {
 	search.FS = os.DirFS("./examples")
 	foundFiles, err = search.Search(w)
 	if err != nil {
-		fmt.Println("No FS in Searcher")
+		fmt.Println(err)
 		return nil, err
 	}
 	return foundFiles, nil // Должен возвращаться слайс файлов
