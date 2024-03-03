@@ -3,7 +3,6 @@ package searcher
 import (
 	"bufio"
 	"io/fs"
-	"os"
 	"strings"
 	"word-search-in-files/pkg/internal/dir"
 )
@@ -17,7 +16,9 @@ func New() *Searcher {
 }
 
 func (s *Searcher) Search(word string) (files []string, err error) {
-	s.FS = os.DirFS("./examples")
+	if s.FS == nil {
+		return nil, &fs.PathError{}
+	}
 	fileNames, err := dir.FilesFS(s.FS, "")
 
 	if err != nil {
