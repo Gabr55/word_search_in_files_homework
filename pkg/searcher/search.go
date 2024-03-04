@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
+	"sort"
 	"strings"
 	"sync"
 	"word-search-in-files/pkg/internal/dir"
@@ -76,5 +77,6 @@ func (s *Searcher) Search(word string) (files []string, err error) {
 		fmt.Println(v)
 		files = append(files, v.file)
 	}
+	sort.Strings(files)
 	return files, nil
 }
