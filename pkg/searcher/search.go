@@ -29,13 +29,14 @@ func (s *Searcher) Search(word string) (files []string, err error) {
 	if s.FS == nil {
 		return nil, errors.New("nil file system")
 	}
-	fileNames, err := dir.FilesFS(s.FS, "")
-	if err != nil {
-		return nil, err
-	}
 	// Проверка наличия cлова для поиска
 	if word == "" {
 		return nil, errors.New("empty word")
+	}
+	// Инициалицаия файловой системы
+	fileNames, err := dir.FilesFS(s.FS, "")
+	if err != nil {
+		return nil, err
 	}
 	// Иницаилизируем слайс c набором файлов
 	files = make([]string, 0, len(fileNames))
@@ -57,6 +58,7 @@ func (s *Searcher) Search(word string) (files []string, err error) {
 			}
 			// Освобождаем ресурс после отработки функции
 			defer file.Close()
+			// Создаем текстовый буфер
 			scan := bufio.NewScanner(file)
 			for scan.Scan() {
 				line := scan.Text()

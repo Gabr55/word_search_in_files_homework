@@ -24,7 +24,7 @@ func (e *Endpoint) Find(c echo.Context) error {
 	p := c.QueryParam("word") // Достаем значение параетра word
 	// Добавить проверку на пустой или отсутсвующий параметр
 	if p == "" {
-		err := c.String(http.StatusOK, "Параметры не найдены") // Переделать на нормальный json ответ
+		err := c.String(http.StatusNotFound, "no word provided") // Переделать на нормальный json ответ
 		if err != nil {
 			return err
 		}
@@ -33,7 +33,7 @@ func (e *Endpoint) Find(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	err = c.JSON(http.StatusOK, f) // Переделать на JSON с полем founded
+	err = c.JSON(http.StatusOK, f)
 	if err != nil {
 		return err
 	}
