@@ -2,6 +2,7 @@ package endpoint
 
 import (
 	"net/http"
+	"unicode/utf8"
 
 	"github.com/labstack/echo/v4"
 )
@@ -23,8 +24,8 @@ func New(s Service) *Endpoint {
 func (e *Endpoint) Find(c echo.Context) error {
 	p := c.QueryParam("word") // Достаем значение параетра word
 	// Добавить проверку на пустой или отсутсвующий параметр
-	if p == "" {
-		err := c.String(http.StatusNotFound, "no word provided") // Переделать на нормальный json ответ
+	if utf8.RuneCountInString(p) < 2 {
+		err := c.String(http.StatusNotFound, "word is too short or empty") // Переделать на нормальный json ответ
 		if err != nil {
 			return err
 		}
