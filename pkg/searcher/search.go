@@ -68,7 +68,7 @@ func (s *Searcher) Search(word string) (files []string, err error) {
 				for _, i := range line {
 
 					if strings.EqualFold(strings.ToLower(
-						strings.Trim(i, ".,!?-\n\t")), w) {
+						strings.Trim(i, ".,!?-()\n\t")), w) {
 						r <- WordFiles{word: w, file: strings.Split(f, ".")[0]}
 						break
 					}
