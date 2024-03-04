@@ -63,10 +63,15 @@ func (s *Searcher) Search(word string) (files []string, err error) {
 			// Создаем текстовый буфер
 			scan := bufio.NewScanner(file)
 			for scan.Scan() {
-				line := scan.Text()
-				if strings.Contains(strings.ToLower(line), w) {
-					r <- WordFiles{word: w, file: strings.Split(f, ".")[0]}
-					break
+				line := strings.Split(scan.Text(), " ")
+				// Проверяем наличие слова
+				for _, i := range line {
+
+					if strings.EqualFold(strings.ToLower(
+						strings.Trim(i, ".,!?-\n\t")), w) {
+						r <- WordFiles{word: w, file: strings.Split(f, ".")[0]}
+						break
+					}
 				}
 			}
 			if err := scan.Err(); err != nil {

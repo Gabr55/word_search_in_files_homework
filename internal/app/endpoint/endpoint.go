@@ -1,6 +1,7 @@
 package endpoint
 
 import (
+	"fmt"
 	"net/http"
 	"unicode/utf8"
 
@@ -33,6 +34,14 @@ func (e *Endpoint) Find(c echo.Context) error {
 	f, err := e.s.FindFiles(p)
 	if err != nil {
 		return err
+	}
+	if len(f) == 0 {
+		fmt.Println("files not found")
+		err = c.String(http.StatusNotFound, "files not found")
+		if err != nil {
+			return err
+		}
+		return nil
 	}
 	err = c.JSON(http.StatusOK, f)
 	if err != nil {
