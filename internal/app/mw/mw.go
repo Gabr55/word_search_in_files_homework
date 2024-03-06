@@ -35,8 +35,15 @@ func WordCheck(cch cache.Cache) echo.MiddlewareFunc {
 					fmt.Println("server error")
 					return err
 				}
-				fmt.Println("response from cache")
+			} else {
+				fmt.Println("file not found")
+				err := c.String(http.StatusNotFound, "files not found")
+				if err != nil {
+					fmt.Println("server error")
+					return err
+				}
 			}
+			fmt.Println("response from cache")
 			return nil
 		}
 	}
